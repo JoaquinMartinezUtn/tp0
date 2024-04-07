@@ -2,10 +2,6 @@
 
 int main(void) {
 	int conexion;
-	char* ip;
-	char* puerto;
-	char* valor;
-
 	t_log* logger;
 	t_config* config;
 
@@ -23,7 +19,7 @@ int main(void) {
 }
 
 t_log* iniciar_logger(void) {
-	t_log* nuevo_logger = log_create("logs/cliente.log","CLIENT_LOG",1,LOG_LEVEL_INFO);
+	t_log* nuevo_logger = log_create("cliente.log","CLIENT_LOG",1,LOG_LEVEL_INFO);
 	if(nuevo_logger == NULL) {
 		perror("Error, create new log.");
 		exit(EXIT_FAILURE);
