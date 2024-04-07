@@ -29,10 +29,13 @@ int crear_conexion(char *ip, char* puerto)
 	getaddrinfo(ip, puerto, &hints, &server_info);
 
 	// Ahora vamos a crear el socket.
-	int socket_cliente = 0;
+	int socket_cliente = socket(server_info->ai_family,
+                         server_info->ai_socktype,
+                         server_info->ai_protocol);;
 
 	// Ahora que tenemos el socket, vamos a conectarlo
 
+	connect(socket_cliente, server_info->ai_addr, server_info->ai_addrlen);
 
 	freeaddrinfo(server_info);
 
@@ -95,14 +98,12 @@ void enviar_paquete(t_paquete* paquete, int socket_cliente)
 	free(a_enviar);
 }
 
-void eliminar_paquete(t_paquete* paquete)
-{
+void eliminar_paquete(t_paquete* paquete) {
 	free(paquete->buffer->stream);
 	free(paquete->buffer);
 	free(paquete);
 }
 
-void liberar_conexion(int socket_cliente)
-{
+void liberar_conexion(int socket_cliente) {
 	close(socket_cliente);
 }
